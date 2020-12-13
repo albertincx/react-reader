@@ -12,11 +12,12 @@ export const Container = styled.div`
 export const ReaderContainer = styled.div`
   font-size: 16px;
   position: absolute;
-  top: ${props => (props.fullscreen ? 0 : 135)}px;
+  top: ${props => (props.fullscreen ? 0 : 60)}px;
   left: ${props => (props.fullscreen ? 0 : 1)}rem;
   right: ${props => (props.fullscreen ? 0 : 1)}rem;
   bottom: ${props => (props.fullscreen ? 0 : 1)}rem;
   transition: all 0.6s ease;
+  padding: 27px;
   ${props => !props.fullscreen && "0 0 5px rgba(0,0,0,.3);"};
 `;
 export const Bar = styled.header`
@@ -72,7 +73,7 @@ export const GenericButton = styled(Button)`
   margin-left: 1rem;
   ${breakpoint("tablet")`
     font-size: 16px;
-    
+
   `};
 `;
 export const CloseIcon = styled.i`

@@ -58,7 +58,7 @@ class EpubView extends Component {
   componentDidUpdate(prevProps) {
     if (
       prevProps.location !== this.props.location &&
-      this.location !== this.props.location
+      this.location !== this.props.location && this.rendition
     ) {
       this.rendition.display(this.props.location);
     }

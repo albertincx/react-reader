@@ -1,18 +1,19 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import { useSwipeable } from "react-swipeable";
-import { EpubView } from "..";
-import defaultStyles from "./style";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { useSwipeable } from 'react-swipeable';
+import { EpubView } from '..';
+import defaultStyles from './style';
 
-const Swipeable = ({children, ...props}) => {
+const Swipeable = ({ children, ...props }) => {
   const handlers = useSwipeable(props);
-  return (<div { ...handlers }>{children}</div>);
-}
+  return (<div {...handlers}>{children}</div>);
+};
 
 class TocItem extends PureComponent {
   setLocation = () => {
     this.props.setLocation(this.props.href);
   };
+
   render() {
     const { label, styles } = this.props;
     return (
@@ -27,7 +28,7 @@ TocItem.propTypes = {
   label: PropTypes.string,
   href: PropTypes.string,
   setLocation: PropTypes.func,
-  styles: PropTypes.object
+  styles: PropTypes.object,
 };
 
 class ReactReader extends PureComponent {
@@ -36,22 +37,44 @@ class ReactReader extends PureComponent {
     this.readerRef = React.createRef();
     this.state = {
       expandedToc: false,
-      toc: false
+      toc: false,
     };
   }
+
   toggleToc = () => {
     this.setState({
-      expandedToc: !this.state.expandedToc
+      expandedToc: !this.state.expandedToc,
     });
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const node = this.readerRef.current;
+    if ((
+      prevProps.location0 !== this.props.location0
+    )) {
+      const node = this.readerRef.current;
+      console.log(node);
+      console.log(prevProps.triggeredPage);
+      console.log(this.props.triggeredPage);
+      if (node) {
+        if (this.props.triggeredPage === 'next') {
+          node.nextPage();
+        } else if (this.props.triggeredPage === 'prev') {
+          node.prevPage();
+        }
+      }
+    }
+  }
+
   next = () => {
     const node = this.readerRef.current;
+    if (this.props.triggerPage) this.props.triggerPage('next');
     node.nextPage();
   };
 
   prev = () => {
     const node = this.readerRef.current;
+    if (this.props.triggerPage) this.props.triggerPage('prev');
     node.prevPage();
   };
 
@@ -59,9 +82,9 @@ class ReactReader extends PureComponent {
     const { tocChanged } = this.props;
     this.setState(
       {
-        toc: toc
+        toc: toc,
       },
-      () => tocChanged && tocChanged(toc)
+      () => tocChanged && tocChanged(toc),
     );
   };
 
@@ -83,7 +106,7 @@ class ReactReader extends PureComponent {
           </div>
         </div>
         {expandedToc && (
-          <div style={styles.tocBackground} onClick={this.toggleToc} />
+          <div style={styles.tocBackground} onClick={this.toggleToc}/>
         )}
       </div>
     );
@@ -93,9 +116,9 @@ class ReactReader extends PureComponent {
     const { locationChanged } = this.props;
     this.setState(
       {
-        expandedToc: false
+        expandedToc: false,
       },
-      () => locationChanged && locationChanged(loc)
+      () => locationChanged && locationChanged(loc),
     );
   };
 
@@ -107,7 +130,7 @@ class ReactReader extends PureComponent {
         style={Object.assign(
           {},
           styles.tocButton,
-          expandedToc ? styles.tocButtonExpanded : {}
+          expandedToc ? styles.tocButtonExpanded : {},
         )}
         onClick={this.toggleToc}
       >
@@ -129,19 +152,19 @@ class ReactReader extends PureComponent {
       styles,
       locationChanged,
       swipeable,
+      className,
       ...props
     } = this.props;
     const { toc, expandedToc } = this.state;
     return (
-      <div style={styles.container}>
+      <div className={className} style={styles.container}>
         <div
           style={Object.assign(
             {},
             styles.readerArea,
-            expandedToc ? styles.containerExpanded : {}
+            expandedToc ? styles.containerExpanded : {},
           )}
         >
-          {showToc && this.renderTocToggle()}
           <div style={styles.titleArea}>{title}</div>
           <Swipeable
             onSwipedRight={this.prev}
@@ -156,7 +179,7 @@ class ReactReader extends PureComponent {
                 tocChanged={this.onTocChange}
                 locationChanged={locationChanged}
               />
-              {swipeable && <div style={styles.swipeWrapper} />}
+              {swipeable && <div style={styles.swipeWrapper}/>}
             </div>
           </Swipeable>
           <button
@@ -172,7 +195,6 @@ class ReactReader extends PureComponent {
             ›
           </button>
         </div>
-        {showToc && toc && this.renderToc()}
       </div>
     );
   }
@@ -183,7 +205,7 @@ ReactReader.defaultProps = {
   locationChanged: null,
   tocChanged: null,
   showToc: true,
-  styles: defaultStyles
+  styles: defaultStyles,
 };
 
 ReactReader.propTypes = {
@@ -193,7 +215,7 @@ ReactReader.propTypes = {
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
-  swipeable: PropTypes.bool
+  swipeable: PropTypes.bool,
 };
 
 export default ReactReader;
