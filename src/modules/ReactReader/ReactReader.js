@@ -48,14 +48,10 @@ class ReactReader extends PureComponent {
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const node = this.readerRef.current;
     if ((
       prevProps.location0 !== this.props.location0
     )) {
       const node = this.readerRef.current;
-      console.log(node);
-      console.log(prevProps.triggeredPage);
-      console.log(this.props.triggeredPage);
       if (node) {
         if (this.props.triggeredPage === 'next') {
           node.nextPage();
@@ -146,7 +142,6 @@ class ReactReader extends PureComponent {
 
   render() {
     const {
-      title,
       showToc,
       loadingView,
       styles,
@@ -155,7 +150,7 @@ class ReactReader extends PureComponent {
       className,
       ...props
     } = this.props;
-    const { toc, expandedToc } = this.state;
+    const { expandedToc } = this.state;
     return (
       <div className={className} style={styles.container}>
         <div
@@ -165,7 +160,6 @@ class ReactReader extends PureComponent {
             expandedToc ? styles.containerExpanded : {},
           )}
         >
-          <div style={styles.titleArea}>{title}</div>
           <Swipeable
             onSwipedRight={this.prev}
             onSwipedLeft={this.next}
@@ -209,7 +203,6 @@ ReactReader.defaultProps = {
 };
 
 ReactReader.propTypes = {
-  title: PropTypes.string,
   loadingView: PropTypes.element,
   showToc: PropTypes.bool,
   locationChanged: PropTypes.func,

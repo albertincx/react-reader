@@ -15,6 +15,7 @@ const reactReaderStyles = {
     transform: "translateX(256px)"
   },
   titleArea: {
+    "font-size": "10px",
     position: "absolute",
     top: 20,
     left: 50,

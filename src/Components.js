@@ -17,7 +17,7 @@ export const ReaderContainer = styled.div`
   right: ${props => (props.fullscreen ? 0 : 1)}rem;
   bottom: ${props => (props.fullscreen ? 0 : 1)}rem;
   transition: all 0.6s ease;
-  padding: 27px;
+  padding: 0px;
   ${props => !props.fullscreen && "0 0 5px rgba(0,0,0,.3);"};
 `;
 export const Bar = styled.header`
@@ -27,8 +27,6 @@ export const Bar = styled.header`
   right: 20px;
 
   ${breakpoint("tablet")`
-    display: flex;
-    align-items: flex-end;
   `};
 `;
 export const ButtonWrapper = styled.div`
