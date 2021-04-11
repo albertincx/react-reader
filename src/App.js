@@ -88,7 +88,10 @@ const GlobalStyle = createGlobalStyle`
   z-index: 3
   }
   .firstLayer button {
-  z-index: 2
+    z-index: 2;
+  }
+  .firstLayer button:last-child {
+    z-index: 2;
   }
   .btns {
     display: flex;

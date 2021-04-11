@@ -4,9 +4,9 @@ import { useSwipeable } from 'react-swipeable';
 import { EpubView } from '..';
 import defaultStyles from './style';
 
-const Swipeable = ({ children, ...props }) => {
+const Swipeable = ({ children, style, ...props }) => {
   const handlers = useSwipeable(props);
-  return (<div {...handlers}>{children}</div>);
+  return (<div style={style} {...handlers}>{children}</div>);
 };
 
 class TocItem extends PureComponent {
@@ -164,6 +164,7 @@ class ReactReader extends PureComponent {
             onSwipedRight={this.prev}
             onSwipedLeft={this.next}
             trackMouse
+            style={styles.Swipeable}
           >
             <div style={styles.reader}>
               <EpubView

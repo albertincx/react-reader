@@ -128,7 +128,7 @@ class EpubView extends Component {
     const { isLoaded } = this.state;
     const { loadingView, styles } = this.props;
     return (
-      <div style={styles.viewHolder}>
+      <div className="epubjs-wrap" style={styles.viewHolder}>
         {(isLoaded && this.renderBook()) || loadingView}
       </div>
     );
