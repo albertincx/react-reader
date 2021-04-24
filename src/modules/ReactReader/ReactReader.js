@@ -178,7 +178,21 @@ class ReactReader extends PureComponent {
             </div>
           </Swipeable>
           <button
+            className="second-btn left"
             style={Object.assign({}, styles.arrow, styles.prev)}
+            onClick={this.next}
+          >
+            ›
+          </button>
+          <button
+            style={Object.assign({}, styles.arrow, styles.prev)}
+            onClick={this.prev}
+          >
+            ‹
+          </button>
+          <button
+            className="second-btn right"
+            style={Object.assign({}, styles.arrow, styles.next)}
             onClick={this.prev}
           >
             ‹

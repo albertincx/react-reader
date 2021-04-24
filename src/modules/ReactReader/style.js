@@ -55,7 +55,7 @@ const reactReaderStyles = {
     position: "absolute",
     top: "50%",
     marginTop: -32,
-    fontSize: 64,
+    fontSize: 50,
     padding: "0 10px",
     color: "#E2E2E2",
     fontFamily: "arial, sans-serif",
